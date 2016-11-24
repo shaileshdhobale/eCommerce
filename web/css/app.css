@@ -21,6 +21,15 @@ h1 {
   padding-top: 15px;
 }
 
+.items {
+  list-style: none;
+}
+
+.items li {
+  clear: both;
+  height: 130px;
+  padding-top: 15px;
+}
 .thumb {
   float: left;
   height: 100px;
@@ -93,4 +102,36 @@ h1 {
     -webkit-transition: border .2s ease-in-out;
     -o-transition: border .2s ease-in-out;
     transition: border .2s ease-in-out;
+}
+
+.grand-total{
+	font-color:white;
+}
+
+.filter-dropdown{
+	padding-top: 15px;
+}
+
+.loadingMask{
+  background:white;
+  opacity:0.5;
+  z-index:1000;
+  position:fixed;
+  height:100%;
+  width:100%;
+  top:100px;
+  left:0;
+  display:none
+}
+.popup-position{
+  position:fixed;
+  height:100%;
+  width:100%;
+  top:150px;
+  left:0;
+  display:none
+}
+
+.showPopup{
+display:block;
 }

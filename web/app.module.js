@@ -2,6 +2,8 @@
 	'use strict';
 	angular
 		.module('eCommerce', [
-			'ui.router'
+			'ui.router',
+			'ngCookies',
+			'ui.bootstrap'
 		]);
 })();

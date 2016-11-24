@@ -1,0 +1,12 @@
+<div ng-init="prodCtrl.init()">
+  <img ng-src="{{prodCtrl.productData.imageUrl}}" class="phone" />
+  <h1>{{prodCtrl.productData.name}}</h1>
+  <p>{{prodCtrl.productData.snippet}}</p>
+  <p>Price: ₹ {{prodCtrl.productData.price}}</p>
+  <p>
+    OTY: <input type="number" name="qty"  ng-minlength="1" ng-maxlength="2" min="1" max="99"style="width:50px" ng-model="prodCtrl.quantity" required>
+  </p>
+  <p>
+    <button type="submit" class="btn btn-success" ng-click="prodCtrl.addToCart(prodCtrl)">ADD TO CART</button>
+  </p>
+</div>

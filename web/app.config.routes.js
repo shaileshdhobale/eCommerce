@@ -7,9 +7,7 @@
   configure.$inject = ['$stateProvider', '$urlRouterProvider'];
 
   function configure($stateProvider, $urlRouterProvider) {
-    
-        $urlRouterProvider.otherwise('/');
-
+      $urlRouterProvider.otherwise('/');
       $stateProvider
         .state('login', {
           url: '/',
@@ -22,6 +20,12 @@
           templateUrl: 'views/home.html',
           controller: 'HomeController',
           controllerAs: 'homeCtrl'
-        });
+        })
+        .state('product', {
+          url: '/home/:productId',
+          templateUrl: 'views/product-details.html',
+          controller: 'ProductDetailsController',
+          controllerAs: 'prodCtrl'
+        });;
   };
 })();

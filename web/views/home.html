@@ -1,20 +1,32 @@
-<div>
+<div ng-init = "homeCtrl.init()">
 	<nav class="navbar navbar-inverse">
 	  <div class="container-fluid">
 	    <div class="navbar-header">
-	      <a class="navbar-brand" href="#">eCommerce</a>
+	      <a class="navbar-brand" href="#/home">eCommerce</a>
 	    </div>
 	    <ul class="nav navbar-nav">
-	      <li class="active"><a href="" ng-click="homeCtrl.showHomeData()">Home</a></li>
-	      <li><a href="" ng-click="homeCtrl.showProducts()">Products</a></li>
-	      <li><a href="" ng-click="homeCtrl.showOrderDetails()">Order</a></li>
+	      <li ng-class="{'active-option':homeCtrl.isHomeActive}"><a href="" ng-click="homeCtrl.showHomeData()">Home</a></li>
+	      <li ng-class="{'active-option':homeCtrl.isProductActive}"><a href="" ng-click="homeCtrl.showProducts()">Products</a></li>
+	      <li ng-class="{'active-option':homeCtrl.isOrderActive}"><a href="" ng-click="homeCtrl.showOrderDetails()">Order</a></li>
 	    </ul>
 	    <form class="navbar-form navbar-left">
 	      <div class="form-group">
-	        <input type="text" class="form-control" placeholder="Search">
+	        <input type="text" class="form-control" placeholder="Search" ng-model="homeCtrl.query">
 	      </div>
-	      <button type="submit" class="btn btn-default">Submit</button>
+	      <button type="submit" class="btn btn-default" ng-click="homeCtrl.searchProduct()">Submit</button>
 	    </form>
+	    <div class="navbar-header">
+	      <span class="navbar-brand " >Grand Total ₹ {{homeCtrl.grandTotal}}</span>
+	    </div>
+	    <div class="navbar-form navbar-right form-group">
+	    	<button type="submit" class="btn btn-danger" ng-click="homeCtrl.logout()">LOGOUT</button>
+	    </div>
+	    <div class="filter-dropdown navbar-left" >
+	    	<select ng-model="homeCtrl.type" ng-show="homeCtrl.isShowList" ng-options="type for type in homeCtrl.priceFilterType"></select>
+	    </div>
+	    <div class="navbar-form navbar-right form-group" ng-show="homeCtrl.isShowOrder && homeCtrl.orderList.length > 0">
+	    	<button type="submit" class="btn btn-success" ng-click="homeCtrl.placeOrder()">PLACE ORDER</button>
+	    </div>
 	  </div>
 	</nav>
 </div>
@@ -25,14 +37,41 @@
     <div class="col-md-10">
       <!--Body content-->
       <ul class="phones" >
-        <li ng-repeat="phone in homeCtrl.phones" class="thumbnail">
-          <a href="#/phone/{{phone.id}}" class="thumb">
+        <li ng-repeat="phone in homeCtrl.phones | filter: homeCtrl.query | price:homeCtrl.type" class="thumbnail">
+          <a href="#/home/{{phone.id}}" class="thumb">
             <img ng-src="{{phone.imageUrl}}" alt="{{phone.name}}" class="thumb"/>
           </a>
-          <a href="#/phone/{{phone.id}}">{{phone.name}}</a>
-          <p>{{phone.snippet}}</p>
+          <a href="#/home/{{phone.id}}">{{phone.name}}</a>
+          <p>₹ {{phone.price}}</p>
         </li>
       </ul>
     </div>
   </div>
+</div>
+
+<div class="container-fluid" ng-show="homeCtrl.isShowOrder">
+  <div class="row">
+    <div class="col-md-10">
+      <!--Body content-->
+      <ul class="items" >
+        <li ng-repeat="item in homeCtrl.orderList | filter: homeCtrl.query" class="thumbnail">
+          <a href="#/home/{{item.id}}" class="thumb">
+            <img ng-src="{{item.imageUrl}}" alt="{{item.name}}" class="thumb"/>
+          </a>
+          <a href="#/home/{{item.id}}">{{item.name}}</a>
+          <p>₹ {{item.price}}</p>
+          <p>Quantity: {{item.quantity}}</p>
+          <p>SubTotal: {{item.subTotal}}</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div ng-show="homeCtrl.isShowBanner">
+	<img src="img/phones/banner1.jpg" style="width: 100%; height: 280px;">
+</div>
+
+<div class="popup-position"> 
+<popup></popup>
 </div>
